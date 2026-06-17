@@ -1,24 +1,27 @@
-const pool = require("../config/postgres");
+const supabase = require("../config/postgres");
 
 async function getState() {
-  const result = await pool.query(
-    `SELECT id, last_updated, hash FROM state`
-  );
+  const { data, error } = await supabase
+    .from('state')
+    .select('*')
+		.single();
 
-  return result.rows[0] || null;
+  if (error) throw error;
+  return data;
 }
 
 async function updateState(hash) {
-	const result = await pool.query(`
-		INSERT INTO state (id, hash, last_updated)
-		VALUES ($1, $2, NOW())
-		ON CONFLICT (id)
-		DO UPDATE SET
-			hash = EXCLUDED.hash,
-			last_updated = NOW()
-		RETURNING *`,
-	[1, hash]);
-	return result.rows[0];
+	const { data, error } = await supabase
+		.from('state')
+		.update({
+			hash: hash,
+		})
+		.eq('id', 1)
+		.select('*')
+		.single();
+
+	if (error) throw error;
+  return data;
 }
 
 module.exports = { getState, updateState };

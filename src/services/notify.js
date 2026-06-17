@@ -27,4 +27,4 @@ async function notifySubs(subs) {
   }
 }
 
-module.exports = notifySubs;
+module.exports = { notifySubs };
