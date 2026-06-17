@@ -1,6 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const path = require("path");
+const validator = require('validator');
 const { getState, updateState } = require('./services/state');
 const scrapeSite = require('./services/scraper');
 const notifySubs = require('./services/notify');
@@ -46,9 +47,10 @@ app.get('/unsubscribe', async (req, res) => {
 });
 
 app.post('/subscribe', async (req, res) => {
-	const formEmail = (req.body.email).toLowerCase();
+	const formEmail = (req.body.email).toLowerCase().trim();
 	const email = await getSubscriberByEmail(formEmail);
 
+	if (!validator.isEmail(formEmail)) return res.json({ status: 'Invalid email' });
 	if (!formEmail) return res.json({ status: 'Must provide email' });
 	if (email) return res.json({ status: 'Already subscribed', email: email.email });
 	await createSubscriber(formEmail);
