@@ -25,7 +25,7 @@ app.get('/api', async (req, res) => {
 	if (!apiKey || apiKey !== process.env.SCRAPER_KEY) return res.status(401).json({ error: 'unauthorized' });
 
 	await runCheck();
-	return res.json({ success: true });
+	return res.status(200).json({ success: true });
 });
 
 app.get('/unsubscribe', async (req, res) => {
@@ -49,6 +49,7 @@ app.post('/subscribe', async (req, res) => {
 	const formEmail = (req.body.email).toLowerCase();
 	const email = await getSubscriberByEmail(formEmail);
 
+	if (!formEmail) return res.json({ status: 'Must provide email' });
 	if (email) return res.json({ status: 'Already subscribed', email: email.email });
 	await createSubscriber(formEmail);
 	return res.json({ status: 'Successfully subscribed' });
@@ -61,7 +62,6 @@ app.get('/health', (req, res) => {
 
 	return res.json({ apiStatus: 'Healthy' });
 });
-
 
 async function runCheck() {
 	const oldState = await getState();

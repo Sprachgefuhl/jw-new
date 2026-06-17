@@ -3,13 +3,26 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/style.css">
+  <script src="https://kit.fontawesome.com/49042efa96.js" crossorigin="anonymous"></script>
   <title>JW New | Subscribe</title>
 </head>
 <body>
-  <form action="/subscribe" method="post">
-    <input type="email" name="email" id="email" placeholder="email">
-    <input type="submit" value="Subscribe">
-  </form>
+  <div class="main-container">
+    <div class="title-con">
+      <h1>Subscribe to receive</h1>
+      <p>notifications when jw.org content is uploaded</p>
+    </div>
 
+    <div class="form-container">
+      <form action="/subscribe" method="post">
+        <i class="fa-regular fa-envelope"></i>
+        <input type="email" name="email" id="email" class="input" placeholder="Enter Your Email">
+        <button type="submit" id="submit-btn">
+          <i class="fa-solid fa-arrow-right-to-bracket"></i>
+        </button>
+      </form>
+    </div>
+  </div>
 </body>
 </html>
