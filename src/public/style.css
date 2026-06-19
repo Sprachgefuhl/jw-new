@@ -51,7 +51,7 @@ body {
 .form-container .input {
   width: 100%;
   padding: 30px 100px 30px 60px;
-  border-radius: 10px;
+  border-radius: 15px;
   border: none;
   font-size: 15px;
   font-weight: bold;
@@ -103,4 +103,16 @@ body {
   font-size: 16px;
   font-weight: bold;
   margin: 0;
+}
+
+#jw-link {
+  all: unset;
+  cursor: pointer;
+  color: rgb(106, 158, 255);
+  transition: 0.6s;
+}
+
+#jw-link:hover {
+  color: #b2b2b2;
+  font-weight: bold;
 }

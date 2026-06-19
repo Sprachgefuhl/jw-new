@@ -11,14 +11,14 @@
 
   <div class="main-container">
     <div class="title-con">
-      <h1>Subscribe to receive</h1>
-      <p>notifications when jw.org content is uploaded</p>
+      <h1>Subscribe</h1>
+      <p>notifications when <a id="jw-link" target="blank" href="https://open.spotify.com/artist/21bXM6Lgy7cj8nT2op71rm?si=QUtn7b9ORFaFu6xuC0sj5w">jw.org</a> releases content!</p>
     </div>
 
     <div class="form-container">
       <form action="/subscribe" method="post">
         <i class="fa-regular fa-envelope"></i>
-        <input type="email" name="email" id="email" class="input" placeholder="Enter Your Email">
+        <input type="email" name="email" id="email" class="input" placeholder="<%= emailPlaceholder %>">
         <button type="submit" id="submit-btn">
           <i class="fa-solid fa-arrow-right-to-bracket"></i>
         </button>

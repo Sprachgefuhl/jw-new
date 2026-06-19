@@ -1,18 +1,22 @@
 const axios = require('axios');
 const cheerio = require('cheerio');
-const crypto = require('crypto');
+const { hash } = require('../utils');
 
 async function extractArticles() {
   const res = await axios.get('https://www.jw.org/en/whats-new/');
   const html = res.data;
   const $ = cheerio.load(html);
+  const articleTitles = $('.whatsNewItems .syn-body a').text();
 
-  return $('.whatsNewItems').text().replace(/\s+/g, ' ').trim(); // article content as text
+  return articleTitles.replace(/\s+/g, ' ').trim();
 }
 
 async function extractVideos() {
   const res = await axios.get('https://b.jw-cdn.org/apis/mediator/v1/categories/E/LatestVideos'); // videos api endpoint
-  return JSON.stringify(res.data.category.media); // list of videos
+  const videos = res.data.category.media;
+  const titles = videos.map(video => video.title);
+
+  return titles.join('');
 }
 
 async function scrapeSite() {
@@ -21,8 +25,6 @@ async function scrapeSite() {
 	return hash(articles + videos);
 }
 
-function hash(content) {
-  return crypto.createHash('sha256').update(content).digest('hex');
-}
+scrapeSite();
 
 module.exports = { scrapeSite };

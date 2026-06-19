@@ -1,5 +1,5 @@
 const supabase = require('../config/postgres');
-const crypto = require('crypto');
+const { generateToken } = require('../utils');
 
 async function getSubByEmail(email) {
   const { data, error } = await supabase
@@ -60,10 +60,6 @@ async function deleteSub(token) {
   if (error) throw new Error(error.message);
   console.log(`🥹 ${data.email} has unsubscribed`);
   return data;
-}
-
-function generateToken() {
-  return crypto.randomBytes(32).toString('hex');
 }
 
 module.exports = { getSubByEmail, getAllSubs, createSub, deleteSub };

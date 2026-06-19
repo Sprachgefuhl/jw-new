@@ -3,12 +3,11 @@ const express = require('express');
 const path = require("path");
 const validator = require('validator');
 const app = express();
-
 const { scrapeSite } = require('./services/scraper');
 const { getState, updateState } = require('./services/state');
 const { getSubByEmail, createSub, deleteSub, getAllSubs } = require('./services/subscribe');
 const { notifySubs } = require('./services/notify');
-
+const { getRandomEmailAddress } = require('./utils');
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
@@ -16,7 +15,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.get('/', async (req, res) => {
-	res.render('index', { status: '', colour: '' });
+	res.render('index', { status: '', colour: '', emailPlaceholder: getRandomEmailAddress() });
 });
 
 app.get('/api', async (req, res) => {
@@ -31,9 +30,15 @@ app.get('/api', async (req, res) => {
 app.get('/unsubscribe', async (req, res) => {
 	const { token } = req.query;
 
-  if (!token) { return res.json({ status: 'Invalid request' })};
+  if (!token) {
+		return res.json({
+			status: 'Invalid request',
+			emailPlaceholder: getRandomEmailAddress()
+		});
+	};
+
   const deleted = await deleteSub(token);
-  if (!deleted) { return res.json({ status: 'Email not found' })}; // invalid token
+  if (!deleted) { return res.json({ status: 'Email not found', emailPlaceholder: getRandomEmailAddress() })}; // invalid token
 
 	return res.json({ status: 'Successfully unsubscribed' });
 });
@@ -42,10 +47,24 @@ app.post('/subscribe', async (req, res) => {
 	const formEmail = (req.body.email).toLowerCase().trim();
 	const email = await getSubByEmail(formEmail);
 
-	if (!validator.isEmail(formEmail)) return res.render('index', { status: 'Invalid email', colour: 'rgb(255, 64, 64)' });
-	if (email) return res.render('index', { status: 'Already subscribed!', colour: '#F08000' });
+	if (!validator.isEmail(formEmail)) {
+		return res.render('index', {
+			status: 'Invalid email',
+			colour: 'rgb(255, 64, 64)',
+			emailPlaceholder: getRandomEmailAddress()
+		});
+	}
+
+	if (email) {
+		return res.render('index', {
+			status: 'Already subscribed!',
+			colour: '#F08000',
+			emailPlaceholder: getRandomEmailAddress()
+		});	
+	}
+
 	const newSub = await createSub(formEmail);
-	return res.render('index', { status: 'Subscribed!', colour: '#80EF80' });
+	return res.render('index', { status: 'Subscribed!', colour: '#80EF80', emailPlaceholder: getRandomEmailAddress() });
 });
 
 app.get('/health', (req, res) => {
