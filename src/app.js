@@ -77,17 +77,17 @@ app.get('/health', (req, res) => {
 
 async function runCheck() {
 	console.log('🌐 Scraper running...')
-	const oldState = await getState();
-	const currentState = await scrapeSite();
+	const oldContent = await getState();
+	const currentContent = await scrapeSite();
+	const newArticles = currentContent.articles.filter(article => !oldContent.articles.includes(article));
+	const newVideos = currentContent.videos.filter(video => !oldContent.videos.includes(video));
 
-	if (currentState !== oldState.hash) { // if new contect detected
+	if (newArticles.length || newVideos.length) { // new content found
 		console.log('✅ New content detected!');
-		await updateState(currentState); // update state
+		await updateState(currentContent);
 		const allSubscribers = await getAllSubs(); // fetch subs
-		return await notifySubs(allSubscribers); // notify them
+		return await notifySubs(allSubscribers, newArticles, newVideos); // notify them
 	}
-
-	console.log('🥲 No content new detected');
 }
 
 app.listen(process.env.PORT || 3000);

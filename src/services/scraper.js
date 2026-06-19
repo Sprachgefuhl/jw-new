@@ -1,14 +1,13 @@
 const axios = require('axios');
 const cheerio = require('cheerio');
-const { hash } = require('../utils');
 
 async function extractArticles() {
   const res = await axios.get('https://www.jw.org/en/whats-new/');
   const html = res.data;
   const $ = cheerio.load(html);
-  const articleTitles = $('.whatsNewItems .syn-body a').text();
+  const articleTitles = $('.whatsNewItems .syn-body a').map((i, article) => $(article).text().trim()).get();
 
-  return articleTitles.replace(/\s+/g, ' ').trim();
+  return articleTitles;
 }
 
 async function extractVideos() {
@@ -16,15 +15,13 @@ async function extractVideos() {
   const videos = res.data.category.media;
   const titles = videos.map(video => video.title);
 
-  return titles.join('');
+  return titles;
 }
 
 async function scrapeSite() {
 	const articles = await extractArticles();
 	const videos = await extractVideos();
-	return hash(articles + videos);
+  return { articles: articles, videos: videos };
 }
-
-scrapeSite();
 
 module.exports = { scrapeSite };

@@ -7,14 +7,14 @@ async function getState() {
 		.single();
 
   if (error) throw error;
-  return data;
+	return JSON.parse(data.content);
 }
 
-async function updateState(hash) {
+async function updateState(newState) {
 	const { data, error } = await supabase
 		.from('state')
 		.update({
-			hash: hash,
+			content: JSON.stringify({ articles: newState.articles, videos: newState.videos })
 		})
 		.eq('id', 1)
 		.select('*')
