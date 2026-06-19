@@ -16,7 +16,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.get('/', async (req, res) => {
-	res.render('index');
+	res.render('index', { status: '', colour: '' });
 });
 
 app.get('/api', async (req, res) => {
@@ -42,11 +42,10 @@ app.post('/subscribe', async (req, res) => {
 	const formEmail = (req.body.email).toLowerCase().trim();
 	const email = await getSubByEmail(formEmail);
 
-	if (!validator.isEmail(formEmail)) return res.json({ status: 'Invalid email' });
-	if (!formEmail) return res.json({ status: 'Must provide email' });
-	if (email) return res.json({ status: 'Already subscribed', email: email.email });
+	if (!validator.isEmail(formEmail)) return res.render('index', { status: 'Invalid email', colour: 'rgb(255, 64, 64)' });
+	if (email) return res.render('index', { status: 'Already subscribed!', colour: '#F08000' });
 	const newSub = await createSub(formEmail);
-	return res.json({ status: 'Successfully subscribed' });
+	return res.render('index', { status: 'Subscribed!', colour: '#80EF80' });
 });
 
 app.get('/health', (req, res) => {

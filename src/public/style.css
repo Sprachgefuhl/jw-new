@@ -92,3 +92,15 @@ body {
 .fa-arrow-right-to-bracket:hover {
   background: #b7b0e2;
 }
+
+.status-con {
+  margin-top: 20px;
+  border-radius: 10px;
+}
+
+.status-con p {
+  padding: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0;
+}
