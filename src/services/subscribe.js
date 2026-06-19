@@ -45,6 +45,7 @@ async function createSub(email) {
     .single();
 
   if (error) throw new Error(error.message);
+  console.log(`👤 ${email} has subscribed!`);
   return data;
 }
 
@@ -57,6 +58,7 @@ async function deleteSub(token) {
     .maybeSingle();
 
   if (error) throw new Error(error.message);
+  console.log(`🥹 ${data.email} has unsubscribed`);
   return data;
 }
 

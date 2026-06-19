@@ -14,8 +14,8 @@
     "dotenv": "^17.4.2",
     "ejs": "^6.0.1",
     "express": "^5.2.1",
-    "nodemailer": "^9.0.0",
     "pg": "^8.21.0",
+    "resend": "^6.14.0",
     "validator": "^13.15.35"
   },
   "devDependencies": {

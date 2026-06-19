@@ -31,16 +31,9 @@ app.get('/api', async (req, res) => {
 app.get('/unsubscribe', async (req, res) => {
 	const { token } = req.query;
 
-  if (!token) {
-		return res.json({ status: 'Invalid request' });
-  }
-
+  if (!token) { return res.json({ status: 'Invalid request' })};
   const deleted = await deleteSub(token);
-	console.log(deleted)
-
-  if (!deleted) { // invalid token
-		return res.json({ status: 'Email not found' });
-  }
+  if (!deleted) { return res.json({ status: 'Email not found' })}; // invalid token
 
 	return res.json({ status: 'Successfully unsubscribed' });
 });
@@ -53,7 +46,6 @@ app.post('/subscribe', async (req, res) => {
 	if (!formEmail) return res.json({ status: 'Must provide email' });
 	if (email) return res.json({ status: 'Already subscribed', email: email.email });
 	const newSub = await createSub(formEmail);
-	console.log(newSub);
 	return res.json({ status: 'Successfully subscribed' });
 });
 
@@ -66,14 +58,18 @@ app.get('/health', (req, res) => {
 });
 
 async function runCheck() {
+	console.log('🌐 Scraper running...')
 	const oldState = await getState();
 	const currentState = await scrapeSite();
-	
+
 	if (currentState !== oldState.hash) { // if new contect detected
+		console.log('✅ New content detected!');
 		await updateState(currentState); // update state
 		const allSubscribers = await getAllSubs(); // fetch subs
-		await notifySubs(allSubscribers); // notify them
+		return await notifySubs(allSubscribers); // notify them
 	}
+
+	console.log('🥲 No content new detected');
 }
 
 app.listen(process.env.PORT || 3000);
