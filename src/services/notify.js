@@ -7,9 +7,9 @@ async function notifySubs(subs, articles, videos) {
       from: 'admin@avreminder.xyz',
       to: [sub.email],
       subject: 'New content on jw.org',
-      html: `<h2><a style="color: #F08000; text-decoration: none;" href="https://www.jw.org/en/whats-new/">What's new? 👈🌐</a></h2>
+      html: `<h2><a style="color: #F08000; text-decoration: none;" href="https://www.jw.org/en/whats-new/">What's new? 👈🖱️</a></h2>
       ${(() => {
-        if (!videos.length) return;
+        if (!videos.length) return '';
         let videoEl = '';
         videos.forEach(video => {
           videoEl += `<p style="font-weight: bold;">VIDEO</p> <span>${video}</span><br><br>`;
@@ -17,7 +17,7 @@ async function notifySubs(subs, articles, videos) {
         return videoEl;
       })()}
       ${(() => {
-        if (!articles.length) return;
+        if (!articles.length) return '';
         let articleEl = '';
         articles.forEach(article => {
           articleEl += `<p style="font-weight: bold;">ARTICLE</p> <span>${article}</span><br><br>`;
