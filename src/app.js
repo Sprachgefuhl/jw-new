@@ -16,7 +16,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.get('/', async (req, res) => {
 	const timeSince = await timeSinceLastContent();
-	res.render('index', { status: 'Last detected content: ', timeSince, colour: '', emailPlaceholder: getRandomEmailAddress() });
+	res.render('index', { status: 'Last detected content: ', timeSince: timeSince, colour: '', emailPlaceholder: getRandomEmailAddress() });
 });
 
 app.get('/unsubscribe', async (req, res) => {
@@ -32,7 +32,7 @@ app.get('/unsubscribe', async (req, res) => {
   const deleted = await deleteSub(token);
   if (!deleted) { return res.json({ status: 'Email not found', emailPlaceholder: getRandomEmailAddress() })}; // invalid token
 
-	return res.render('index', { status: 'Successfully unsubscribed', colour: '#80EF80', emailPlaceholder: getRandomEmailAddress() });
+	return res.render('index', { status: 'Successfully unsubscribed', timeSince: '', colour: '#80EF80', emailPlaceholder: getRandomEmailAddress() });
 });
 
 app.post('/subscribe', async (req, res) => {
@@ -43,6 +43,7 @@ app.post('/subscribe', async (req, res) => {
 		return res.render('index', {
 			status: 'Invalid email',
 			colour: 'rgb(255, 64, 64)',
+			timeSince: '',
 			emailPlaceholder: getRandomEmailAddress()
 		});
 	}
@@ -51,12 +52,13 @@ app.post('/subscribe', async (req, res) => {
 		return res.render('index', {
 			status: 'Already subscribed!',
 			colour: '#F08000',
+			timeSince: '',
 			emailPlaceholder: getRandomEmailAddress()
 		});	
 	}
 
 	const newSub = await createSub(formEmail);
-	return res.render('index', { status: 'Subscribed!', colour: '#80EF80', emailPlaceholder: getRandomEmailAddress() });
+	return res.render('index', { status: 'Subscribed!', timeSince: '', colour: '#80EF80', emailPlaceholder: getRandomEmailAddress() });
 });
 
 app.get('/api', async (req, res) => {
