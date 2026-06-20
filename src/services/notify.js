@@ -7,25 +7,29 @@ async function notifySubs(subs, articles, videos) {
       from: 'admin@avreminder.xyz',
       to: [sub.email],
       subject: 'New content on jw.org',
-      html: `<h2><a style="color: #F08000; text-decoration: none;" href="https://www.jw.org/en/whats-new/">What's new? 👈🖱️</a></h2>
-      ${(() => {
-        if (!videos.length) return '';
-        let videoEl = '';
-        videos.forEach(video => {
-          videoEl += `<p style="font-weight: bold;">VIDEO</p> <span>${video}</span><br><br>`;
-        });
-        return videoEl;
-      })()}
-      ${(() => {
-        if (!articles.length) return '';
-        let articleEl = '';
-        articles.forEach(article => {
-          articleEl += `<p style="font-weight: bold;">ARTICLE</p> <span>${article}</span><br><br>`;
-        });
-        return articleEl;
-      })()}
-      <br><br>
-      <a style="color: #F08000; text-decoration: none;" href="https://jw-new.onrender.com/unsubscribe?token=${sub.unsubscribe_token}">unsubscribe 🥹</a>`
+      html: `
+      <div style="font-family: Trebuchet MS; font-size: 18px;">
+        ${(() => {
+          if (!videos.length) return '';
+          let videoEl = '<h2 style="padding: 10px; background: #e5e7eb; color: #1e293b; border-radius: 10px; text-align: center; width: 100px; font-size: 24px;">VIDEOS</h2>';
+          videos.forEach(video => {
+            videoEl += `<p>${video}</p>`;
+          });
+          return videoEl;
+        })()}
+        <br>
+        ${(() => {
+          if (!articles.length) return '';
+          let articleEl = '<h2 style="padding: 10px; background: #e5e7eb; color: #1e293b; border-radius: 10px; text-align: center; width: 125px; font-size: 24px;">ARTICLES</h2>';
+          articles.forEach(article => {
+            articleEl += `<p>${article}</p>`;
+          });
+          return articleEl;
+        })()}
+        <br><br>
+        <a style="color: #F08000; text-decoration: none;" href="https://jw-new.onrender.com/unsubscribe?token=${sub.unsubscribe_token}">unsubscribe 🥹</a>
+      </div>
+      `
     }));
 
     const { data, error } = await resend.batch.send(emailPayloads);

@@ -7,7 +7,7 @@ const { scrapeSite } = require('./services/scraper');
 const { getState, updateState } = require('./services/state');
 const { getSubByEmail, createSub, deleteSub, getAllSubs } = require('./services/subscribe');
 const { notifySubs } = require('./services/notify');
-const { getRandomEmailAddress } = require('./utils');
+const { getRandomEmailAddress, timeSinceLastContent } = require('./utils');
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
@@ -15,16 +15,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.get('/', async (req, res) => {
-	res.render('index', { status: '', colour: '', emailPlaceholder: getRandomEmailAddress() });
-});
-
-app.get('/api', async (req, res) => {
-	// block users without key
-	const apiKey = req.query.key;
-	if (!apiKey || apiKey !== process.env.SCRAPER_KEY) return res.status(401).json({ error: 'unauthorized' });
-
-	await runCheck();
-	return res.status(200).json({ success: true });
+	const timeSince = await timeSinceLastContent();
+	res.render('index', { status: 'Last detected content: ', timeSince, colour: '', emailPlaceholder: getRandomEmailAddress() });
 });
 
 app.get('/unsubscribe', async (req, res) => {
@@ -40,11 +32,11 @@ app.get('/unsubscribe', async (req, res) => {
   const deleted = await deleteSub(token);
   if (!deleted) { return res.json({ status: 'Email not found', emailPlaceholder: getRandomEmailAddress() })}; // invalid token
 
-	return res.json({ status: 'Successfully unsubscribed' });
+	return res.render('index', { status: 'Successfully unsubscribed', colour: '#80EF80', emailPlaceholder: getRandomEmailAddress() });
 });
 
 app.post('/subscribe', async (req, res) => {
-	const formEmail = (req.body.email).toLowerCase().trim();
+	const formEmail = req.body.email.toLowerCase().trim();
 	const email = await getSubByEmail(formEmail);
 
 	if (!validator.isEmail(formEmail)) {
@@ -67,6 +59,15 @@ app.post('/subscribe', async (req, res) => {
 	return res.render('index', { status: 'Subscribed!', colour: '#80EF80', emailPlaceholder: getRandomEmailAddress() });
 });
 
+app.get('/api', async (req, res) => {
+	// block users without key
+	const apiKey = req.query.key;
+	if (!apiKey || apiKey !== process.env.SCRAPER_KEY) return res.status(401).json({ error: 'unauthorized' });
+
+	await runCheck();
+	return res.status(200).json({ success: true });
+});
+
 app.get('/health', (req, res) => {
 	// block users without key
 	const apiKey = req.query.key;
@@ -76,7 +77,7 @@ app.get('/health', (req, res) => {
 });
 
 async function runCheck() {
-	console.log('🌐 Scraper running...')
+	console.log('🌐 Scraper running...');
 	const oldContent = await getState();
 	const currentContent = await scrapeSite();
 	const newArticles = currentContent.articles.filter(article => !oldContent.articles.includes(article));
@@ -89,7 +90,5 @@ async function runCheck() {
 		return await notifySubs(allSubscribers, newArticles, newVideos); // notify them
 	}
 }
-
-runCheck();
 
 app.listen(process.env.PORT || 3000);

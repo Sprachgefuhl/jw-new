@@ -12,12 +12,13 @@
 
   <div class="main-container">
     <div class="title-con">
-      <h1>Subscribe</h1>
+      <h1>What's New?</h1>
       <p>notifications when <a id="jw-link" target="blank" href="https://open.spotify.com/artist/21bXM6Lgy7cj8nT2op71rm?si=QUtn7b9ORFaFu6xuC0sj5w">jw.org</a> releases content!</p>
     </div>
 
     <div class="form-container">
-      <form action="/subscribe" method="post">
+      <form id="sub-form" action="/subscribe" method="post">
+        <!-- <input type="hidden" id="hiddenDropdown" name="lan"> -->
         <i class="fa-regular fa-envelope"></i>
         <input type="email" name="email" id="email" class="input" placeholder="<%= emailPlaceholder %>">
         <button type="submit" id="submit-btn">
@@ -27,8 +28,22 @@
     </div>
     
     <div class="status-con">
-      <p style="color: <%= colour %>;"><%= status %></p>
+      <p style="color: <%= colour %>;"><%= status %><span style="color: rgb(106, 158, 255);"><%= timeSince %></span></p>
+      <!-- <form id="lang-form">
+        <select id="lan-select" name="lan">
+          <option value="en">en</option>
+          <option value="es">es</option>
+          <option value="de">de</option>
+        </select>
+      </form> -->
     </div>
   </div>
+
+  <!-- <script>
+    document.getElementById('sub-form').addEventListener('submit', () => {
+      const dropdownValue = document.getElementById('lan-select').value;
+      document.getElementById('hiddenDropdown').value = dropdownValue;
+    });
+  </script> -->
 </body>
 </html>
