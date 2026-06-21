@@ -28,7 +28,7 @@ body {
 .main-container h1 {
   margin-bottom: 20px;
   font-size: 42px;
-  color: #fff;
+  color: #f8fafc;
 }
 
 .main-container p {
@@ -90,8 +90,48 @@ body {
   color: rgb(175, 69, 179);
 }
 
-.status-con {
+.lang-con {
   margin-top: 20px;
+}
+
+select, ::picker(select) {
+  appearance: base-select;
+}
+
+/* closed dropdown */
+select {
+  border: none;
+  font-size: 18px;
+  font-weight: bold;
+  color: #f8fafc;
+  cursor: pointer;
+}
+
+/* open dropdown */
+::picker(select) {
+  font-size: 15px;
+  padding: 3px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  background: #1e293b;
+}
+
+/* dropdown items */
+option {
+  color: #f8fafc;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+/* selected item */
+option:checked {
+  background-color: #324561;
+}
+
+.status-con {
+  position: fixed;
+  bottom: 0;
+  margin-bottom: 20px;
   width: 90%;
   text-align: center;
   border-radius: 10px;

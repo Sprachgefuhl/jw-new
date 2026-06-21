@@ -32,20 +32,36 @@ async function getAllSubs() {
   return data;
 }
 
-async function createSub(email) {
+async function createSub(email, lang) {
   const token = generateToken();
 
   const { data, error } = await supabase
     .from('subscribers')
     .insert([{
       email: email,
-      unsubscribe_token: token
+      lang: lang,
+      unsubscribe_token: token,
     }])
     .select('*')
     .single();
 
   if (error) throw new Error(error.message);
   console.log(`👤 ${email} has subscribed!`);
+  return data;
+}
+
+async function updateUserLang(email, lang) {
+  const { data, error } = await supabase
+ 		.from('subscribers')
+		.update({
+			lang: lang
+		})
+		.eq('email', email)
+		.select('*')
+		.single();
+
+  if (error) throw new Error(error.message);
+  console.log(`🗣️ ${email} has updated their language to ${lang}`);
   return data;
 }
 
@@ -62,4 +78,4 @@ async function deleteSub(token) {
   return data;
 }
 
-module.exports = { getSubByEmail, getAllSubs, createSub, deleteSub };
+module.exports = { getSubByEmail, getAllSubs, createSub, updateUserLang, deleteSub };

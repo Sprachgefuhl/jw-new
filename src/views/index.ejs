@@ -12,13 +12,13 @@
 
   <div class="main-container">
     <div class="title-con">
-      <h1><a style="all: unset; cursor: pointer;" href="/">What's New?</a></h1>
-      <p>notifications when <a id="jw-link" target="blank" href="https://open.spotify.com/artist/21bXM6Lgy7cj8nT2op71rm?si=QUtn7b9ORFaFu6xuC0sj5w">jw.org</a> releases content!</p>
+      <h1><a style="all: unset; cursor: pointer;" href="/">Get alerts🔔</a></h1>
+      <p>when <a id="jw-link" target="blank" href="https://www.jw.org/en/whats-new/">jw.org</a> adds content!</p>
     </div>
 
     <div class="form-container">
       <form id="sub-form" action="/subscribe" method="post">
-        <!-- <input type="hidden" id="hiddenDropdown" name="lan"> -->
+        <input type="hidden" id="hiddenDropdown" name="lang">
         <i class="fa-regular fa-envelope"></i>
         <input type="email" name="email" id="email" class="input" placeholder="<%= emailPlaceholder %>">
         <button type="submit" id="submit-btn">
@@ -26,24 +26,27 @@
         </button>
       </form>
     </div>
-    
+
+    <div class="lang-con">
+      <form id="lang-form">
+        <select id="lang-select" name="lang">
+          <option value="E">English</option>
+          <option value="S">Español</option>
+          <option value="X">Deutsch</option>
+        </select>
+      </form>
+    </div>
+
     <div class="status-con">
       <p style="color: <%= colour %>;"><%= status %><span style="color: rgb(106, 158, 255);"><%= timeSince %></span></p>
-      <!-- <form id="lang-form">
-        <select id="lan-select" name="lan">
-          <option value="en">en</option>
-          <option value="es">es</option>
-          <option value="de">de</option>
-        </select>
-      </form> -->
     </div>
   </div>
 
-  <!-- <script>
+  <script>
     document.getElementById('sub-form').addEventListener('submit', () => {
-      const dropdownValue = document.getElementById('lan-select').value;
+      const dropdownValue = document.getElementById('lang-select').value;
       document.getElementById('hiddenDropdown').value = dropdownValue;
     });
-  </script> -->
+  </script>
 </body>
 </html>

@@ -1,23 +1,24 @@
 const supabase = require("../config/postgres");
 
-async function getState() {
+async function getState(langRef) {
   const { data, error } = await supabase
     .from('state')
     .select('*')
+		.eq('lang', langRef)
 		.single();
 
   if (error) throw error;
 	return JSON.parse(data.content);
 }
 
-async function updateState(newState) {
+async function updateState(articles, videos, langRef) {
 	const { data, error } = await supabase
 		.from('state')
 		.update({
-			content: JSON.stringify({ articles: newState.articles, videos: newState.videos }),
+			content: JSON.stringify({ articles: articles, videos: videos }),
 			last_updated: new Date()
 		})
-		.eq('id', 1)
+		.eq('lang', langRef)
 		.select('*')
 		.single();
 
@@ -29,6 +30,7 @@ async function getLastUpdated() {
   const { data, error } = await supabase
     .from('state')
     .select('*')
+		.eq('lang', 'E')
 		.single();
 
   if (error) throw error;

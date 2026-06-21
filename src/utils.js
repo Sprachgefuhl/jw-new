@@ -13,7 +13,7 @@ function getRandomEmailAddress() {
   const emails = [
     "malware@company.com",
     "readtheroom@divinia.com",
-    // "cheapcreamsandoinments@yahoo.com",
+    "cheapcreamsandoinments@yahoo.com",
     "dontvisitourcountry@djibouti.gov",
     // "nigerianprince1000@outlook.com"
   ];
