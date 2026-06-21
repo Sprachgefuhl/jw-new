@@ -70,7 +70,7 @@ app.get('/api', async (req, res) => {
 	const apiKey = req.query.key;
 	if (!apiKey || apiKey !== process.env.SCRAPER_KEY) return res.status(401).json({ error: 'unauthorized' });
 
-	await runCheck();
+	await runScrapers();
 	return res.status(200).json({ success: true });
 });
 
