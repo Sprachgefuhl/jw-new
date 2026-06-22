@@ -6,8 +6,7 @@ const { notifySubs } = require('./notify');
 const langData = require('../langData');
 
 async function scrapeArticles(lang) {
-  // const res = await axios.get(lang.scraperUrl);
-  const res = await axios.get('https://www.jw.org/en/news/region/global/Door-to-Door-Preaching-Constitutes-for-Jehovahs-Witnesses-an-Essential-Manifestation-of-Their-Religion/');
+  const res = await axios.get(lang.scraperUrl);
   const html = res.data;
   const $ = cheerio.load(html);
   const articleTitles = $('.whatsNewItems .syn-body a').map((i, article) => $(article).text().trim()).get();
