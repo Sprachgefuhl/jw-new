@@ -1,6 +1,6 @@
 const axios = require('axios');
 const cheerio = require('cheerio');
-const { getState } = require('./state');
+const { getState, updateState } = require('./state');
 const { getAllSubs } = require('./user');
 const { notifySubs } = require('./notify');
 const langData = require('../langData');
@@ -29,7 +29,7 @@ async function scrapeVideos(lang) {
 }
 
 async function runScraper(lang) {
-  console.log(`🌐 Scraper running for: ${lang.name}`);
+  // console.log(`🌐 Scraper running for: ${lang.name}`);
   
   const oldContent = await getState(lang.ref);
   const currentArticles = await scrapeArticles(lang);
