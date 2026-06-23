@@ -1,17 +1,17 @@
 .cursor {
-  pointer-events: none; /* Needed to prevent our cursor from becoming the unintended target of our mouse events */
-  position: fixed; /* Required for setting inset values */
+  pointer-events: none;
+  position: fixed;
   height: 28px;
   width: 28px;
   border-radius: 28px;
-  background-color: light-dark(black, white);
-  transform: translate(-50%, -50%); /* Centers circle to cursor location */
+  background-color: light-dark(#000, #fff);
+  z-index: -1;
+  transform: translate(-50%, -50%);
   transform-origin: top left;
 }
 
 .click {
   scale: 0.8;
-  /* transition: 0.1s; */
 }
 
 .pressable {

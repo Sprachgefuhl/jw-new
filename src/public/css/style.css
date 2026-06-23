@@ -10,11 +10,11 @@
 .main-container h1 {
   margin-bottom: 20px;
   font-size: 42px;
-  color: #f8fafc;
+  color: light-dark(#08080c, #f8fafc);
 }
 
 .main-container p {
-  color: #b2b2b2;
+  color: light-dark(#08080c, #b2b2b2);
   font-size: 20px;
 }
 
@@ -38,11 +38,17 @@
   padding: 15px 50px;
   /* padding: 15px 0; */
   border: none;
-  border-bottom: 2px solid #fff;
-  color: #fff;
+  border-bottom: 2px solid light-dark(#08080c, #fff);
+  color: light-dark(#08080c, #fff);
   font-size: 1.2rem;
   font-weight: bold;
   outline: none;
+}
+
+input:autofill,
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px light-dark(#fff, #08080c) inset !important;
+    box-shadow: 0 0 0px 1000px light-dark(#fff, #08080c) inset !important;
 }
 
 #submit-btn {
@@ -56,14 +62,19 @@
   top: 21%;
   left: 5px;
   font-size: 25px;
-  color: #fff;
+  color: light-dark(#08080c, #fff);
+  transition: 0.4s;
+}
+
+.fa-envelope:hover {
+  /* color: #F08000; */
 }
 
 .fa-arrow-right-to-bracket {
   position: absolute;
   top: 21%;
   right: 5px;
-  color: #fff;
+  color: light-dark(#08080c, #fff);
   font-size: 25px;
   transition: 0.4s;
 }
@@ -113,6 +124,16 @@ option:checked {
   background-color: #324561;
 }
 
+.colour-mode-con {
+  position: fixed;
+  bottom: 30px;
+}
+
+.colour-mode-con i {
+  color: light-dark(#08080c, #fff);
+  font-size: 25px;
+}
+
 .status-con {
   /* position: fixed; */
   /* bottom: 0; */
@@ -129,7 +150,7 @@ option:checked {
 
 #jw-link {
   all: unset;
-  color: #b2b2b2;
+  color: light-dark(#5e5e5e,#b2b2b2);
   font-weight: bold;
   transition: 0.5s;
 }
@@ -137,4 +158,12 @@ option:checked {
 #jw-link:hover {
   color: rgb(106, 158, 255);
   font-weight: 500;
+}
+
+#colour-icon {
+  transition: 0.4s;
+}
+
+#colour-icon:hover {
+  color: light-dark(#fff, #08080c);
 }

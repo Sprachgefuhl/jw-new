@@ -7,11 +7,9 @@
   outline: none;
   cursor: none;
   font-family: "Quicksand", sans-serif;
-  color-scheme: light dark;
 }
 
 body {
-  background-color: #08080c;
-  /* background-color: #FFF6E8; */
-  color: #fff;
+  color-scheme: dark;
+  background-color: light-dark(#FFF6E8, #08080c);
 }

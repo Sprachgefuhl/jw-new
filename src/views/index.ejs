@@ -20,7 +20,7 @@
 
   <div class="main-container">
     <div class="title-con">
-      <h1><a style="all: unset; cursor: pointer;" href="/">Get alerts</a></h1>
+      <h1>Get alerts</h1>
       <p>when <a id="jw-link" target="blank" href="https://www.jw.org/en/whats-new/">jw.org</a> adds content!</p>
     </div>
 
@@ -48,16 +48,23 @@
     <div class="status-con">
       <p style="color: <%= colour %>;"><%= status %><span style="color: rgb(106, 158, 255);"><%= timeSince %></span></p>
     </div>
+
+    <div class="colour-mode-con">
+      <button style="all: unset;">
+        <i id="colour-icon" class="fa-solid fa-moon"></i>
+      </button>
+    </div>
   </div>
 
-  <script>
+  <!-- <script>
     document.getElementById('sub-form').addEventListener('submit', () => {
       const dropdownValue = document.getElementById('lang-select').value;
       document.getElementById('hiddenDropdown').value = dropdownValue;
     });
-  </script>
+  </script> -->
   <script src="/js/background.js"></script>
   <script src="/js/cursor.js"></script>
+  <script src="/js/colourMode.js"></script>
   <script src="/js/script.js"></script>
 </body>
 </html>
