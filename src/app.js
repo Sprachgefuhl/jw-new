@@ -23,7 +23,8 @@ app.get('/', async (req, res) => {
 
 app.post('/subscribe', async (req, res) => {
 	const formEmail = req.body.email.toLowerCase().trim();
-	const formLang = req.body.lang;
+	// const formLang = req.body.lang;
+	const formLang = 'E'; // english by default, change when reintegrating mls
 	const email = await getSubByEmail(formEmail);
 
 	if (!validator.isEmail(formEmail)) {
@@ -53,14 +54,11 @@ app.get('/unsubscribe', async (req, res) => {
 	const { token } = req.query;
 
   if (!token) {
-		return res.json({
-			status: 'Invalid request',
-			emailPlaceholder: getRandomEmailAddress()
-		});
+		return res.json({ status: 'Invalid request' });
 	};
 
   const deleted = await deleteSub(token);
-  if (!deleted) { return res.json({ status: 'Email not found', emailPlaceholder: getRandomEmailAddress() })}; // invalid token
+  if (!deleted) { return res.json({ status: 'Email not found' })}; // invalid token
 
 	return res.render('index', { status: 'Successfully unsubscribed', timeSince: '', colour: '#80EF80', emailPlaceholder: getRandomEmailAddress() });
 });

@@ -3,11 +3,11 @@ const handlebars = require('handlebars');
 const mjml = require('mjml');
 const fs = require('fs');
 const path = require('path');
-const resend = new Resend(process.env.RESEND_API);
 
 const templatePath = path.join(process.cwd(), 'src/templates/email.mjml');
 const mjmlTemplate = fs.readFileSync(templatePath, 'utf8');
 const compiledTemplate = handlebars.compile(mjmlTemplate);
+const resend = new Resend(process.env.RESEND_API);
 
 async function generateHtmlEmail(data) {
   const mjmlOutput = compiledTemplate(data);

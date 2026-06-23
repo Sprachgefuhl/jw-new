@@ -11,11 +11,11 @@ function generateToken() {
 
 function getRandomEmailAddress() {
   const emails = [
-    "malware@company.com",
-    "readtheroom@divinia.com",
-    "cheapcreamsandoinments@yahoo.com",
-    "dontvisitourcountry@djibouti.gov",
-    // "nigerianprince1000@outlook.com"
+    // "malware@company.com",
+    // "readtheroom@divinia.com",
+    // "cheapcreamsandoinments@yahoo.com",
+    // "dontvisitourcountry@djibouti.gov",
+    "email",
   ];
 
   return emails[Math.floor(Math.random() * emails.length)];

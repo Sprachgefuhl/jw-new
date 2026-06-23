@@ -1,30 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
-
-* {
-  margin: 0;
-  padding: 0;
-  outline: none;
-  box-sizing: border-box;
-  font-family: "Quicksand", sans-serif;
-}
-
-body {
-  background-image: linear-gradient(rgba(0, 0, 0, 1), rgba(26, 28, 46, 0.5)), url('bg.jpg');
-  background-size: cover;
-  width: 100%;
-  height: 100vh;
-  min-height: -webkit-fill-available;
-  overflow-x: hidden;
-}
-
 .main-container {
-  width: 100%;
-  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  letter-spacing: 2px;
+  min-height: 95vh;
+  letter-spacing: 1px;
 }
 
 .main-container h1 {
@@ -34,63 +14,62 @@ body {
 }
 
 .main-container p {
-  margin-bottom: 30px;
   color: #b2b2b2;
   font-size: 20px;
 }
 
 .title-con {
   width: 90%;
+  margin-bottom: 20px;
   text-align: center;
 }
 
 .form-container {
-  max-width: 550px;
+  max-width: 450px;
   width: 90%;
   position: relative;
 }
 
 .form-container .input {
+  field-sizing: content;
+  background: none;
+  outline: none;
   width: 100%;
-  padding: 30px 60px 30px 60px;
-  border-radius: 15px;
+  padding: 15px 50px;
+  /* padding: 15px 0; */
   border: none;
-  font-size: 15px;
+  border-bottom: 2px solid #fff;
+  color: #fff;
+  font-size: 1.2rem;
   font-weight: bold;
+  outline: none;
 }
 
 #submit-btn {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
   background: none;
   border: none;
   padding: 0;
-  cursor: pointer;
-  font-size: 24px;
 }
 
 .fa-envelope {
   position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  left: 20px;
-  font-size: 20px;
+  top: 21%;
+  left: 5px;
+  font-size: 25px;
+  color: #fff;
 }
 
 .fa-arrow-right-to-bracket {
   position: absolute;
-  top: 50%;
-  right: 20px;
-  transform: translateY(-50%);
-  color: #000;
-  font-size: 20px;
-  cursor: pointer;
+  top: 21%;
+  right: 5px;
+  color: #fff;
+  font-size: 25px;
   transition: 0.4s;
 }
 
 .fa-arrow-right-to-bracket:hover {
-  color: rgb(175, 69, 179);
+  color: rgb(106, 158, 255);
 }
 
 .lang-con {
@@ -135,12 +114,10 @@ option:checked {
 }
 
 .status-con {
-  position: fixed;
-  bottom: 0;
-  margin-bottom: 20px;
+  /* position: fixed; */
+  /* bottom: 0; */
   width: 90%;
   text-align: center;
-  border-radius: 10px;
 }
 
 .status-con p {
@@ -158,7 +135,6 @@ option:checked {
 }
 
 #jw-link:hover {
-  cursor: pointer;
   color: rgb(106, 158, 255);
   font-weight: 500;
 }

@@ -70,7 +70,7 @@
     <mj-section>
       <mj-column>
         <mj-text align="center" font-size="14px" padding-bottom="40px">
-          <a href="/unsubscribe?token={{unsubscribeToken}}" style="color:#e28334; text-decoration:underline;">unsubscribe</a>
+          <a href="https://jw-new.onrender.com/unsubscribe?token={{unsubscribeToken}}" style="color:#e28334; text-decoration:underline;">unsubscribe</a>
         </mj-text>
       </mj-column>
     </mj-section>
