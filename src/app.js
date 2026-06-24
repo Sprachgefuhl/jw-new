@@ -37,9 +37,9 @@ app.post('/subscribe', async (req, res) => {
 	}
 
 	if (email) {
-		await updateUserLang(email.email, formLang);
+		// await updateUserLang(email.email, formLang);
 		return res.render('index', {
-			status: 'Language updated!',
+			status: 'Already subscribed!',
 			colour: '#F08000',
 			timeSince: '',
 			emailPlaceholder: getRandomEmailAddress()
