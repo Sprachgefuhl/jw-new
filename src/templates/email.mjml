@@ -2,66 +2,48 @@
   <mj-head>
     <mj-font name="Quicksand" href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" />
     <mj-attributes>
-      <mj-all font-family="Quicksand, Helvetica, Arial, sans-serif" background-color="#fff" />
-      <mj-text font-size="16px" line-height="24px" color="#333333" />
-      <!-- <mj-button background-color="#CC0000" color="#ffffff" border-radius="6px" font-weight="bold" /> -->
+      <mj-all font-family="Quicksand, Helvetica, Arial, sans-serif" background-color="#1E1E24" />
+      <mj-text font-size="16px" line-height="24px" color="#F3F4F6" />
     </mj-attributes>
   </mj-head>
 
   <mj-body>
-    <!-- Header -->
-    <mj-section padding="25px 0px 25px 0px">
-      <mj-column>
-        <mj-text align="center" font-size="32px" font-weight="bold" color="#000">
-          New JW Content!
-        </mj-text>
-      </mj-column>
-    </mj-section>
-
-    <!-- New Videos -->
+    <!-- Videos -->
     {{#if videos.length}}
-      <mj-section padding="10px 0px 0px 0px">
+    <!-- Header -->
+      <mj-section padding="20px 0px 20px 0px">
         <mj-column>
-          <mj-text align="center" font-size="22px" font-weight="bold">
-            VIDEOS
-          </mj-text>
+          <mj-text align="left" font-size="30px" font-weight="bold">VIDEOS</mj-text>
         </mj-column>
       </mj-section>
 
+      <!-- Items -->
       {{#each videos}}
         <mj-section padding="0 0 25px 0">
-          <mj-column>
-            <mj-image
-              href="https://www.jw.org/en/whats-new/"
-              width="350px"
-              src="{{this.image}}"
-              border-radius="10px" 
-              padding-bottom="10px" />
-            
-            <mj-text align="center" font-size="17px" font-weight="bold" line-height="26px">
-              {{this.title}}
-            </mj-text>
+          <mj-column vertical-align="middle">
+            <mj-image src="{{this.image}}" width="300px" align="left" border-radius="10px" href="https://www.jw.org/en/whats-new/" alt="{{this.title}}"/>
+          </mj-column>
+          <mj-column vertical-align="middle">
+            <mj-text align="left" font-size="17px" font-weight="bold">{{this.title}}</mj-text>
           </mj-column>
         </mj-section>
       {{/each}}
     {{/if}}
 
-      <!-- New Articles -->
+    <!-- Articles -->
     {{#if articles.length}}
-      <mj-section padding="20px 0px 0px 0px">
+    <!-- Header -->
+      <mj-section padding="20px 0px 20px 0px">
         <mj-column>
-          <mj-text align="center" font-size="22px" font-weight="bold">
-            ARTICLES
-          </mj-text>
+          <mj-text align="left" font-size="30px" font-weight="bold">ARTICLES</mj-text>
         </mj-column>
       </mj-section>
 
+      <!-- Items -->
       {{#each articles}}
         <mj-section padding="0 20px 25px">
-          <mj-column background-color="#D9DDDC" border-radius="10px"> 
-            <mj-text align="center" font-size="17px" font-weight="bold" line-height="26px">
-              {{this}}
-            </mj-text>
+          <mj-column background-color="#37373d"> 
+            <mj-text align="left" font-size="17px" font-weight="bold">{{this}}</mj-text>
           </mj-column>
         </mj-section>
       {{/each}}
@@ -69,9 +51,10 @@
 
     <mj-section>
       <mj-column>
-        <mj-text align="center" font-size="14px" padding-bottom="40px">
-          <a href="https://jw-new.onrender.com/unsubscribe?token={{unsubscribeToken}}" style="color:#e28334; text-decoration:underline;">unsubscribe</a>
-        </mj-text>
+        <mj-button align="left" padding-bottom="40px" color="#e28334" font-size="15px" letter-spacing="1px"
+          border="3px solid #37373d" href="https://jw-new.onrender.com/unsubscribe?token={{unsubscribeToken}}">
+          Unsubscribe
+        </mj-button>
       </mj-column>
     </mj-section>
   </mj-body>

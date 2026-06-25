@@ -18,7 +18,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.get('/', async (req, res) => {
 	const timeSince = await timeSinceLastContent();
-	res.render('index', { status: 'Last detected content: ', timeSince: timeSince, colour: '', emailPlaceholder: getRandomEmailAddress() });
+	res.render('index', { status: timeSince });
 });
 
 app.post('/subscribe', async (req, res) => {
@@ -27,40 +27,22 @@ app.post('/subscribe', async (req, res) => {
 	const formLang = 'E'; // english by default, change when reintegrating mls
 	const email = await getSubByEmail(formEmail);
 
-	if (!validator.isEmail(formEmail)) {
-		return res.render('index', {
-			status: 'Invalid email',
-			colour: 'rgb(255, 64, 64)',
-			timeSince: '',
-			emailPlaceholder: getRandomEmailAddress()
-		});
-	}
-
-	if (email) {
-		// await updateUserLang(email.email, formLang);
-		return res.render('index', {
-			status: 'Already subscribed!',
-			colour: '#F08000',
-			timeSince: '',
-			emailPlaceholder: getRandomEmailAddress()
-		});	
-	}
+	if (!validator.isEmail(formEmail)) return res.status(400).json({ success: false, msg: 'Invalid email' }); // invalid email
+	if (email) return res.status(409).json({ success: false, msg: 'Already subscribed' }); // already subscribed
 
 	const newSub = await createSub(formEmail, formLang);
-	return res.render('index', { status: 'Subscribed!', timeSince: '', colour: '#80EF80', emailPlaceholder: getRandomEmailAddress() });
+	return res.status(200).json({ success: true, msg: 'Subscribed' });
 });
 
 app.get('/unsubscribe', async (req, res) => {
 	const { token } = req.query;
 
-  if (!token) {
-		return res.json({ status: 'Invalid request' });
-	};
+  if (!token) return res.status(401).json({ success: false, msg: 'Unauthorised' }); // missing tolen
 
   const deleted = await deleteSub(token);
-  if (!deleted) { return res.json({ status: 'Email not found' })}; // invalid token
+  if (!deleted) { return res.status(400).json({ success: false, status: 'Email not found' })}; // invalid token
 
-	return res.render('index', { status: 'Successfully unsubscribed', timeSince: '', colour: '#80EF80', emailPlaceholder: getRandomEmailAddress() });
+	return res.render('index', { status: 'Unsubscribed' });
 });
 
 app.get('/api', async (req, res) => {
@@ -72,10 +54,19 @@ app.get('/api', async (req, res) => {
 	return res.status(200).json({ success: true });
 });
 
+app.get('/health', async (req, res) => {
+	// block users without key
+	const apiKey = req.query.key;
+	if (!apiKey || apiKey !== process.env.SCRAPER_KEY) return res.status(401).json({ error: 'unauthorized' });
+	return res.status(200).json({ success: true });
+});
+
 async function runScrapers() {
-	for (const lang of langData) { // execute scaper for each language
-		await runScraper(lang);
-	}
+	// for (const lang of langData) { // execute scaper for each language
+	// 	await runScraper(lang);
+	// }
+
+	await runScraper(langData[0])
 }
 
 app.listen(process.env.PORT || 3000);

@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="/css/background.css">
   <link rel="stylesheet" href="/css/cursor.css">
   <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/status.css">
   <script src="https://kit.fontawesome.com/49042efa96.js" crossorigin="anonymous"></script>
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <title>Join | What's new?</title>
@@ -26,15 +27,16 @@
       </div>
       
       <div class="form-container">
-        <form id="sub-form" action="/subscribe" method="post">
+        <form id="sub-form" action="/subscribe" method="post" novalidate>
           <i class="fa-regular fa-envelope"></i>
-          <input type="email" name="email" id="email" class="input" placeholder="<%= emailPlaceholder %>" autocomplete="off">
+          <input type="email" name="email" id="email" class="input" placeholder="email" autocomplete="off">
           <button type="submit" id="submit-btn">SIGN UP</button>
         </form>
       </div>
       
       <div class="status-con">
-        <p style="color: <%= colour %>;"><%= status %><span style="color: rgb(106, 158, 255);"><%= timeSince %></span></p>
+        <div id="status-icon" class="signal-node"></div>
+        <p id="status"><%= status %></p>
       </div>
     </div>
   </div>
@@ -42,5 +44,6 @@
   <script src="/js/background.js"></script>
   <script src="/js/cursor.js"></script>
   <script src="/js/script.js"></script>
+  <script src="/js/signup.js"></script>
 </body>
 </html>

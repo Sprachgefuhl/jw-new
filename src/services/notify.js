@@ -26,9 +26,9 @@ async function notifySubs(subs, articles, videos) {
     for (const sub of subs) {
       const html = await generateHtmlEmail({ unsubscribeToken: sub.unsubscribe_token, articles: articles, videos: videos }); 
       emailPayloads.push({
-        from: 'admin@avreminder.xyz',
+        from: 'JW New <admin@avreminder.xyz>',
         to: [sub.email],
-        subject: 'New content on jw.org',
+        subject: 'New content detected',
         html: html
       });
     }

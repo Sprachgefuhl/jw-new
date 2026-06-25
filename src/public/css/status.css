@@ -1,0 +1,48 @@
+.status-con {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 60px 0 60px;
+}
+
+.status-con p {
+  color: #08080c;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.error-dot {
+  display: none;
+  width: 10px;
+  height: 10px;
+  margin-right: 10px;
+  border-radius: 50%;
+  background: #EF4444;
+  box-shadow:
+    0 0 1px 1px rgba(239, 68, 68, 0.35),
+    0 0 4px 2px rgba(239, 68, 68, 0.6);
+}
+
+.success-dot {
+  display: none;
+  width: 10px;
+  height: 10px;
+  margin-right: 10px;
+  border-radius: 50%;
+  background: #4B995B;
+  box-shadow: 
+    0 0 1px 1px rgba(75, 153, 91, 0.35),
+    0 0 4px 2px rgba(75, 153, 91, 0.6);
+}
+
+.signal-node {
+  width: 8px;
+  height: 8px;
+  margin-right: 10px;
+  background: #4a7cff;
+  /* border-radius: 6px; */
+  transform: rotate(45deg);
+  box-shadow: 
+    0 0 1px 1px rgba(74, 124, 255, 0.35),   /* Strong outer glow */
+    0 0 4px 2px rgba(74, 124, 255, 0.6);     /* Inner glow */
+}

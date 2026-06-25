@@ -1,8 +1,9 @@
 const axios = require('axios');
 const cheerio = require('cheerio');
-const { getState, updateState } = require('./state');
+const { getState, updateState, getLastUpdated } = require('./state');
 const { getAllSubs } = require('./user');
 const { notifySubs } = require('./notify');
+const { hrsSinceLastContent } = require('../utils');
 const langData = require('../langData');
 
 async function scrapeArticles(lang) {
@@ -28,13 +29,14 @@ async function scrapeVideos(lang) {
 }
 
 async function runScraper(lang) {
-  // console.log(`🌐 Scraper running for: ${lang.name}`);
-  
   const oldContent = await getState(lang.ref);
   const currentArticles = await scrapeArticles(lang);
   const currentVideos = await scrapeVideos(lang);
   const newArticles = currentArticles.filter(article => !oldContent.articles.includes(article));
   const newVideos = currentVideos.filter(current => !oldContent.videos.some(old => old.title === current.title));
+
+  // const allSubscribers = await getAllSubs();
+  // const testEmail = allSubscribers.filter(sub => sub.email === 'benjsbroja@gmail.com');
 
   if (newArticles.length || newVideos.length) { // new content found in language
   	console.log(`✅ New content detected: ${lang.name}`);

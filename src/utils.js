@@ -21,21 +21,27 @@ function getRandomEmailAddress() {
   return emails[Math.floor(Math.random() * emails.length)];
 }
 
-async function timeSinceLastContent() {
+async function hrsSinceLastContent() {
   const lastUpdated = await getLastUpdated();
   const msSince = new Date() - new Date(lastUpdated);
   const hrsSince = msSince / (1000 * 60 * 60);
   
+  return hrsSince;
+}
+
+async function timeSinceLastContent() {
+  const hrsSince = await hrsSinceLastContent();
+  
   if (hrsSince < 1) {
     const mins = Math.floor(hrsSince * 60);
-    return `${mins} min${mins !== 1 ? 's' : ''} ago`;
+    return `${mins}m ago`;
   } else if (hrsSince < 24) {
     const hours = Math.floor(hrsSince);
-    return `${hours} hour${hours !== 1 ? 's' : ''} ago`;
+    return `${hours}hr${hours !== 1 ? 's' : ''} ago`;
   } else {
     const days = Math.floor(hrsSince / 24);
-    return `${days} day${days !== 1 ? 's' : ''} ago`;
+    return `${days}d ago`;
   }
 }
 
-module.exports = { hash, generateToken, getRandomEmailAddress, timeSinceLastContent };
+module.exports = { hash, generateToken, getRandomEmailAddress, timeSinceLastContent, hrsSinceLastContent };
